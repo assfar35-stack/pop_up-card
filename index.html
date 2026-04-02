@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>E-tutor</title>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-gray-900: #1d2026;
+        --color-gray-800: #363b47;
+        --color-gray-700: #4e5566;
+        --color-gray-600: #6e7485;
+        --color-gray-500: #8c94a3;
+        --color-gray-400: #a1a5b3;
+        --color-gray-300: #b7bac7;
+        --color-gray-200: #ced1d9;
+        --color-gray-100: #e9eaf0;
+        --color-gray-50: #f5f7fa;
+        --color-white: #ffffff;
+
+        --color-primary-900: #33140b;
+        --color-primary-800: #662916;
+        --color-primary-700: #993d20;
+        --color-primary-600: #cc522b;
+        --color-primary-500: #ff6636;
+        --color-primary-400: #ff855e;
+        --color-primary-300: #ffa386;
+        --color-primary-200: #ffddd1;
+        --color-primary-100: #ffeee8;
+
+        --color-secondary-900: #111033;
+        --color-secondary-800: #222065;
+        --color-secondary-700: #342f98;
+        --color-secondary-600: #453fca;
+        --color-secondary-500: #564ffd;
+        --color-secondary-400: #7872fd;
+        --color-secondary-300: #9a95fe;
+        --color-secondary-200: #cdcbfe;
+        --color-secondary-100: #ebebff;
+
+        --color-sucess-900: #07260a;
+        --color-sucess-800: #0e4c14;
+        --color-sucess-700: #15711f;
+        --color-sucess-600: #1c9729;
+        --color-sucess-500: #23bd33;
+        --color-sucess-400: #4fca5c;
+        --color-sucess-300: #7bd785;
+        --color-sucess-200: #c3e5c6;
+        --color-sucess-100: #e1f7e3;
+
+        --color-warning-900: #331d06;
+        --color-warning-800: #65390c;
+        --color-warning-700: #985613;
+        --color-warning-600: #cc7319;
+        --color-warning-500: #fd8e1f;
+        --color-warning-400: #fda44c;
+        --color-warning-300: #febb79;
+        --color-warning-200: #fed1a5;
+        --color-warning-100: #fff2e5;
+
+        --color-danger-900: #2d0e0e;
+        --color-danger-800: #5b1b1b;
+        --color-danger-700: #882929;
+        --color-danger-600: #b63636;
+        --color-danger-500: #e34444;
+        --color-danger-400: #e96969;
+        --color-danger-300: #ee8f8f;
+        --color-danger-200: #f4c8c8;
+        --color-danger-100: #fff0f0;
+
+        --font-inter: "Inter", sans-serif;
+
+        --text-8xl: 80px;
+        --text-8xl-line-height: 80px;
+        --text-7xl: 72px;
+        --text-7xl-line-height: 74px;
+        --text-6xl: 64px;
+        --text-6xl-line-height: 68px;
+        --text-5xl: 48px;
+        --text-5xl-line-height: 52px;
+        --text-4xl: 40px;
+        --text-4xl-line-height: 48px;
+        --text-3xl: 32px;
+        --text-3xl-line-height: 40px;
+        --text-2xl: 24px;
+        --text-2xl-line-height: 32px;
+        --text-lg: 18px;
+        --text-lg-line-height: 100%;
+        --text-base: 16px;
+        --text-base-line-height: 100%;
+        --text-sm: 14px;
+        --text-sm-line-height: 100%;
+        --text-xs: 12px;
+        --text-xs-line-height: 12px;
+        --text-xxs: 10px;
+        --text-xxs-line-height: 12px;
+      }
+
+      .btn {
+        @apply px-8 font-semibold tracking-[-0.8%] leading-12 text-nowrap flex items-center gap-3 cursor-pointer;
+      }
+      .btn-primary {
+        @apply bg-primary-500 text-white hover:bg-primary-600 hover:drop-shadow-[0_0_20px_rgba(204,82,43,0.5)];
+      }
+      .btn-secondary {
+        @apply bg-primary-100 text-primary-500 hover:bg-primary-200 hover:text-primary-600;
+      }
+      .btn-gray {
+        @apply bg-gray-800 text-white;
+      }
+      .btn-tertiary {
+        @apply bg-white text-primary-500 hover:bg-primary-100 text-primary-600;
+      }
+      .btn-simple {
+        @apply text-primary-500 text-left hover:border-b-2 border-primary-500 px-0;
+      }
+      .container {
+        @apply max-w-[1320px] mx-auto px-6;
+      }
+
+      #popup {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      #popup.visible {
+        pointer-events: auto;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="font-inter">
+    <section class="container relative">
+      <h2 class="text-3xl font-semibold text-gray-900 text-center mb-12 mt-20">
+        Recently added courses
+      </h2>
+
+      <div class="grid grid-cols-4 gap-6 mb-10">
+
+        <!-- Card 1 -->
+        <div class="card border border-gray-100 flex flex-col gap-3 cursor-pointer" data-idx="0">
+          <img src="./assets/Course Images(12).svg" alt="DESIGN" class="w-full h-[183px] object-cover" />
+          <div class="flex justify-between items-center px-4">
+            <span class="text-xxs font-medium uppercase bg-primary-100 text-primary-700 px-3 py-1">DESIGN</span>
+            <span class="text-sm font-semibold text-primary-500">$57</span>
+          </div>
+          <p class="text-sm font-medium text-gray-900 leading-5 h-[48px] mb-[14px] px-4">
+            The Python Mega Course: Build 10 Real World Applications
+          </p>
+          <div class="flex justify-between text-sm border-t border-[#E9EAF0]/70 px-4 py-[18px]">
+            <div class="flex items-center gap-[6px]">
+              <img src="./assets/Star.svg" />
+              <span class="text-gray-700">5.0</span>
+            </div>
+            <div class="flex items-center gap-[6px]">
+              <img src="./assets/User (1).png" alt="" />
+              <span class="text-gray-500"><span class="text-gray-700">265.7K</span> students</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card border border-gray-100 flex flex-col gap-3 cursor-pointer" data-idx="1">
+          <img src="./assets/it & software.svg" alt="IT & Software" class="w-full h-[183px] object-cover" />
+          <div class="flex justify-between items-center px-4">
+            <span class="text-xxs font-medium uppercase bg-danger-100 text-danger-700 px-3 py-1">IT & SOFTWARE</span>
+            <span class="text-sm font-semibold text-primary-500">$57</span>
+          </div>
+          <p class="text-sm font-medium text-gray-900 leading-5 h-[48px] mb-[14px] px-4">
+            Facebook Ads & Facebook Marketing MASTERY 2021 Cours...
+          </p>
+          <div class="flex justify-between text-sm border-t border-[#E9EAF0]/70 px-4 py-[18px]">
+            <div class="flex items-center gap-[6px] text-gray-700">
+              <img src="./assets/Star.svg" />
+              <span>5.0</span>
+            </div>
+            <div class="flex items-center gap-[6px]">
+              <img src="./assets/User (1).png" alt="" />
+              <span class="text-gray-500"><span class="text-gray-700">265.7K</span> students</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card border border-gray-100 flex flex-col gap-3 cursor-pointer" data-idx="2" id="card-3">
+          <img src="./assets/development2.png" alt="" class="w-full h-[183px] object-cover" />
+          <div class="flex justify-between items-center px-4">
+            <span class="text-xxs font-medium uppercase bg-secondary-100 text-secondary-700 px-3 py-1">DEVELOPMENT</span>
+            <span class="text-sm font-semibold text-primary-500">$57</span>
+          </div>
+          <p class="text-sm font-medium text-gray-900 leading-5 h-[48px] mb-[14px] px-4">
+            2021 Complete Python Bootcamp From Zero to Hero in Python
+          </p>
+          <div class="flex justify-between text-sm border-t border-[#E9EAF0]/70 px-4 py-[18px]">
+            <div class="flex items-center gap-[6px] text-gray-700">
+              <img src="./assets/Star.svg" />
+              <span>5.0</span>
+            </div>
+            <div class="flex items-center gap-[6px]">
+              <img src="./assets/User (1).png" alt="" />
+              <span class="text-gray-500"><span class="text-gray-700">265.7K</span> students</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card border border-gray-100 flex flex-col gap-3 cursor-pointer" data-idx="3">
+          <img src="./assets/Course Images(14).svg" alt="Marketing" class="w-full h-[183px] object-cover" />
+          <div class="flex justify-between items-center px-4">
+            <span class="text-xxs font-medium uppercase bg-secondary-100 text-secondary-700 px-3 py-1">MARKETING</span>
+            <span class="text-sm font-semibold text-primary-500">$57</span>
+          </div>
+          <p class="text-sm font-medium text-gray-900 leading-5 h-[48px] mb-[14px] px-4">
+            How to get Diamond in soloQ | League of Legends | Season 11
+          </p>
+          <div class="flex justify-between text-sm border-t border-[#E9EAF0]/70 px-4 py-[18px]">
+            <div class="flex items-center gap-[6px]">
+              <img src="./assets/Star.svg" />
+              <span class="text-gray-700">5.0</span>
+            </div>
+            <div class="flex items-center gap-[6px]">
+              <img src="./assets/User (1).png" alt="" />
+              <span class="text-gray-500"><span class="text-gray-700">265.7K</span> students</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Browse Button -->
+      <div class="flex justify-center mt-12 mb-20">
+        <button class="btn btn-secondary flex items-center gap-2">
+          <span>Browse All Courses</span>
+          <span><img src="assets/ArrowRight.svg" alt="" /></span>
+        </button>
+      </div>
+
+      <!-- POPUP -->
+      <div id="popup" class="absolute top-0 left-0 bg-white max-w-[430px] border border-gray-100 shadow-xl z-50">
+
+        <!-- Arrow indicator -->
+        <div id="popup-arrow" class="absolute top-[20%] w-3 h-3 bg-white"></div>
+
+        <div class="p-6 pb-5">
+          <div class="mb-3">
+            <span id="p-badge" class="text-xxs font-medium uppercase px-3 py-1"></span>
+          </div>
+          <h3 id="p-title" class="text-lg font-semibold text-gray-900 leading-6 mb-5"></h3>
+
+          <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center gap-3">
+              <img id="p-avatar" src="./assets/Kevin.png" alt="Instructor" class="w-12 h-12 rounded-full object-cover" />
+              <div class="flex flex-col">
+                <span class="text-xs text-gray-400">Course by</span>
+                <span id="p-instructor" class="text-sm font-medium text-gray-900"></span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <img src="./assets/Star.svg" alt="star" class="w-4 h-4" />
+              <span id="p-rating" class="text-sm font-semibold text-gray-900"></span>
+              <span id="p-reviews" class="text-xs text-gray-400 font-normal"></span>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-2">
+              <img src="./assets/User (1).png" alt="students" class="w-4 h-4 opacity-70" />
+              <span id="p-students" class="text-sm font-medium text-gray-700"></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <img src="./assets/bar-chart.png" alt="level" class="w-4 h-4 opacity-70" />
+              <span id="p-level" class="text-sm text-gray-500"></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <img src="./assets/Clock.png" alt="duration" class="w-4 h-4 opacity-70 -rotate-90" />
+              <span id="p-duration" class="text-sm text-gray-500"></span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-[10px]">
+            <span id="p-price" class="text-2xl font-normal text-gray-900"></span>
+            <span id="p-original" class="text-base text-gray-400 line-through"></span>
+            <span id="p-off" class="bg-primary-100 text-primary-500 px-3 py-1 text-sm font-medium"></span>
+            <button class="ml-auto w-12 h-12 flex items-center justify-center bg-primary-100 cursor-pointer">
+              <img src="./assets/Heart.svg" alt="" />
+            </button>
+          </div>
+        </div>
+
+        <div class="h-[1px] bg-gray-100 w-full"></div>
+
+        <div class="p-6">
+          <h4 class="text-xs font-medium text-gray-900 uppercase tracking-wide mb-4">What you'll learn</h4>
+          <ul id="p-learn" class="space-y-4"></ul>
+        </div>
+
+        <div class="h-[1px] bg-gray-100 w-full"></div>
+
+        <div class="p-6 flex flex-col gap-3">
+          <button class="btn btn-primary w-full justify-center py-4 h-14">
+            <img src="./assets/ShoppingCartSimple.svg" alt="" class="invert brightness-0" />
+            <span>Add To Cart</span>
+          </button>
+          <button class="btn btn-secondary w-full justify-center py-4 h-14">
+            <span>Course Detail</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <script>
+
+      const courses = [
+        {
+          badgeLabel: "DESIGN",
+          badgeClass: "bg-primary-100 text-primary-700",
+          title: "The Python Mega Course: Build 10 Real World Applications",
+          avatar: "./assets/Kevin.png",
+          instructor: "Kevin Gilbert",
+          rating: "5.0",
+          reviews: "(198,412)",
+          students: "265.7K",
+          level: "Intermediate",
+          duration: "8 hours",
+          currentPrice: "$57.00",
+          originalPrice: "$89.00",
+          discount: "36% OFF",
+          learn: [
+            "Master UI/UX principles with real-world projects",
+            "Design polished interfaces in Figma and Adobe XD",
+            "Build a professional portfolio with 10 case studies"
+          ]
+        },
+        {
+          badgeLabel: "IT & SOFTWARE",
+          badgeClass: "bg-danger-100 text-danger-700",
+          title: "Facebook Ads & Facebook Marketing MASTERY 2021",
+          avatar: "./assets/Kevin.png",
+          instructor: "Marcus Reid",
+          rating: "4.9",
+          reviews: "(143,200)",
+          students: "265.7K",
+          level: "Beginner",
+          duration: "5 hours",
+          currentPrice: "$57.00",
+          originalPrice: "$99.00",
+          discount: "42% OFF",
+          learn: [
+            "Set up and optimize Facebook ad campaigns from scratch",
+            "Master audience targeting and retargeting strategies",
+            "Measure ROI and scale winning ads effectively"
+          ]
+        },
+        {
+          badgeLabel: "DEVELOPMENT",
+          badgeClass: "bg-secondary-100 text-secondary-700",
+          title: "2021 Complete Python Bootcamp From Zero to Hero in Python",
+          avatar: "./assets/Kevin.png",
+          instructor: "Kevin Gilbert",
+          rating: "5.0",
+          reviews: "(357,914)",
+          students: "265.7K",
+          level: "Beginner",
+          duration: "6 hours",
+          currentPrice: "$14.00",
+          originalPrice: "$26.00",
+          discount: "56% OFF",
+          learn: [
+            "Learn to use Python professionally, learning both Python 2 and Python 3!",
+            "Create games with Python, like Tic Tac Toe and Blackjack!",
+            "Build real-world applications from scratch"
+          ]
+        },
+        {
+          badgeLabel: "MARKETING",
+          badgeClass: "bg-secondary-100 text-secondary-700",
+          title: "How to get Diamond in soloQ | League of Legends | Season 11",
+          avatar: "./assets/Kevin.png",
+          instructor: "Sarah Chen",
+          rating: "4.8",
+          reviews: "(87,340)",
+          students: "265.7K",
+          level: "Advanced",
+          duration: "4 hours",
+          currentPrice: "$57.00",
+          originalPrice: "$79.00",
+          discount: "28% OFF",
+          learn: [
+            "Master macro strategy and decision-making at high elo",
+            "Understand wave management and map control",
+            "Develop a champion pool and climb consistently"
+          ]
+        }
+      ];
+
+
+      const popup  = document.getElementById("popup");
+      const arrow  = document.getElementById("popup-arrow");
+      const cards  = document.querySelectorAll(".card");
+      let hideTimer = null;
+
+ 
+      function fillPopup(c) {
+        const badge = document.getElementById("p-badge");
+        badge.textContent = c.badgeLabel;
+        badge.className = `text-xxs font-medium uppercase px-3 py-1 ${c.badgeClass}`;
+
+        document.getElementById("p-title").textContent      = c.title;
+        document.getElementById("p-avatar").src             = c.avatar;
+        document.getElementById("p-instructor").textContent = c.instructor;
+        document.getElementById("p-rating").textContent     = c.rating;
+        document.getElementById("p-reviews").textContent    = c.reviews;
+        document.getElementById("p-level").textContent      = c.level;
+        document.getElementById("p-duration").textContent   = c.duration;
+        document.getElementById("p-price").textContent      = c.currentPrice;
+        document.getElementById("p-original").textContent   = c.originalPrice;
+        document.getElementById("p-off").textContent        = c.discount;
+
+        const studentsEl = document.getElementById("p-students");
+        studentsEl.innerHTML = `${c.students} <span class="text-gray-500 font-normal">students</span>`;
+
+        const ul = document.getElementById("p-learn");
+        ul.innerHTML = c.learn.map(item => `
+          <li class="flex items-start gap-3">
+            <img src="./assets/Check.png" alt="check" class="w-auto h-5 mt-0.5" />
+            <p class="text-sm text-gray-600">${item}</p>
+          </li>
+        `).join("");
+      }
+
+      function positionPopup(card) {
+        const col       = [...cards].indexOf(card);
+        const isRight   = col >= 2;
+        const top       = card.offsetTop - 20;
+
+        popup.style.top = Math.max(0, top) + "px";
+
+        if (isRight) {
+
+          popup.style.left  = (card.offsetLeft - popup.offsetWidth - 12) + "px";
+
+          arrow.style.left   = "auto";
+          arrow.style.right  = "-6px";
+          arrow.style.borderRight  = "1px solid #e9eaf0";
+          arrow.style.borderTop    = "1px solid #e9eaf0";
+          arrow.style.borderLeft   = "none";
+          arrow.style.borderBottom = "none";
+          arrow.style.transform    = "rotate(45deg)";
+        } else {
+
+          popup.style.left  = (card.offsetLeft + card.offsetWidth + 12) + "px";
+
+          arrow.style.right  = "auto";
+          arrow.style.left   = "-6px";
+          arrow.style.borderLeft   = "1px solid #e9eaf0";
+          arrow.style.borderBottom = "1px solid #e9eaf0";
+          arrow.style.borderRight  = "none";
+          arrow.style.borderTop    = "none";
+          arrow.style.transform    = "rotate(45deg)";
+        }
+      }
+
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          clearTimeout(hideTimer);
+          const idx = parseInt(card.dataset.idx, 10);
+          fillPopup(courses[idx]);
+          positionPopup(card);
+          popup.classList.add("visible");
+        });
+
+        card.addEventListener("mouseleave", (e) => {
+          if (popup.contains(e.relatedTarget)) return;
+          hideTimer = setTimeout(() => popup.classList.remove("visible"), 120);
+        });
+      });
+
+      popup.addEventListener("mouseenter", () => clearTimeout(hideTimer));
+      popup.addEventListener("mouseleave", () => {
+        hideTimer = setTimeout(() => popup.classList.remove("visible"), 120);
+      });
+    </script>
+  </body>
+</html>
