@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="dom.css" />
+    <title>Dom-serie</title>
+  </head>
+  <body>
+    <h1>Exercices pratiques sur le DOM en JavaScript</h1>
+
+    <section class="exercice">
+      <h2 id="my-h1">Barca didnt won the last match</h2>
+
+      <div class="my-div">
+        <p class="changeMe">Press the button</p>
+        <button class="myButton">Press me</button>
+      </div>
+
+      <div class="my-div">
+        <ul class="ma-liste">
+          <li>Messi</li>
+          <li>Ronaldo</li>
+        </ul>
+        <button class="btn-add">Ajouter</button>
+        <button class="btn-delete">Supprimer le dernier</button>
+      </div>
+
+      <div class="my-div">
+        <button class="btnHelloDom">Hello DOM</button>
+      </div>
+
+      <div class="my-div">
+        <input type="text" class="inputText" placeholder="Type something..." />
+        <button class="btnAfficher">Submit</button>
+        <div class="affichageTexte"></div>
+      </div>
+
+      <div class="my-div">
+        <button class="btnToggle">Toggle Text</button>
+        <p class="textToToggle">Click me to toggle visibility</p>
+      </div>
+
+      <div class="my-div">
+        <button id="btnMinus">-</button>
+        <span id="counterValue">0</span>
+        <button id="btnPlus">+</button>
+      </div>
+
+      <script>
+        /* exercise 1 */
+        let titre = document.querySelector("#my-h1");
+        titre.textContent = "Barca should do an comeback next week";
+        titre.style.color = "#f38375";
+        
+        /* exercise 2 */
+        let paragraphe = document.querySelector(".changeMe");
+        let bouton = document.querySelector(".myButton");
+        bouton.addEventListener("click", () => {
+          paragraphe.classList.toggle("texte-alerte");
+        });
+
+        /* exercise 3/4 */
+        let liste = document.querySelector(".ma-liste");
+        let btnAjouter = document.querySelector(".btn-add");
+        let btnSupprimer = document.querySelector(".btn-delete");
+        
+        btnAjouter.addEventListener("click", () => {
+          const newItem = document.createElement("li");
+          newItem.textContent = "Messi";
+          liste.appendChild(newItem);
+        });
+        
+        btnSupprimer.addEventListener("click", () => {
+          if (liste.lastElementChild) {
+            liste.removeChild(liste.lastElementChild);
+          }
+        });
+
+        /* exercise 5 */
+        let btnHelloDom = document.querySelector(".btnHelloDom");
+        btnHelloDom.addEventListener("click", () => {
+          alert("Hello DOM");
+        });
+
+        /* exercise 6*/
+        let inputText = document.querySelector(".inputText");
+        let btnAfficher = document.querySelector(".btnAfficher");
+        let affichageTexte = document.querySelector(".affichageTexte");
+
+        btnAfficher.addEventListener("click", () => {
+          affichageTexte.textContent = inputText.value;
+        });
+
+        /* exercise 7*/
+        let btnToggle = document.querySelector(".btnToggle");
+        let textToToggle = document.querySelector(".textToToggle");
+
+        btnToggle.addEventListener("click", () => {
+          textToToggle.style.display = textToToggle.style.display === "none" ? "block" : "none";
+        });
+
+        /* exercise 8*/
+        let counterValue = 0;
+        let displayCounter = document.querySelector("#counterValue");
+        let btnPlus = document.querySelector("#btnPlus");
+        let btnMinus = document.querySelector("#btnMinus");
+
+        btnPlus.addEventListener("click", () => {
+          counterValue++;
+          displayCounter.textContent = counterValue;
+        });
+
+        btnMinus.addEventListener("click", () => {
+          counterValue--;
+          displayCounter.textContent = counterValue;
+        });
+        </script>
+    </section>
+  </body>
+</html>

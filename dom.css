@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 20px;
+}
+
+.exercice {
+  background-color: #0a0908;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #1d3557;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.my-div {
+  background-color: #ffe3e0;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.texte-alerte {
+  color: #ef6351;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.btn-add,
+.btn-delete,
+.btnHelloDom,
+.myButton,
+.btnAfficher,
+.btnToggle {
+  background-color: #2a9d8f;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ma-liste {
+  list-style-type: none;
+  padding: 0;
+}
+.inputText {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ef6351;
+  border-radius: 5px;
+  width: 150px;
+}
